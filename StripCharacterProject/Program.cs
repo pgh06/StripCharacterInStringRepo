@@ -8,24 +8,26 @@ namespace StripCharacterProject
 {
     class Program
     {
-        public static string StripZeros(string n)
+        public static string StripZeros(string n, char target)
         {
-            if (n.StartsWith("0"))
-            {
-                string substring = n.Substring(1);
-                var newString = StripZeros(substring);
-                return newString;
-            }
+            var index = n.IndexOf(target);
 
-            return n;
+            if (index < 0)
+            {
+                return n;
+            }
+            else
+            {
+                return StripZeros(n.Substring(0, index) + n.Substring(index + 1), target);
+            }
         }
 
         static void Main(string[] args)
         {
-            var test1 = StripZeros("0000000000004354");
-            var test2 = StripZeros("00fd04fdsgfdsgs");
-            var test3 = StripZeros("0000000000004fdgdfgdgd354");
-            var test4 = StripZeros("00000000fdg4354");
+            var test1 = StripZeros("0000000000004354", '0');
+            var test2 = StripZeros("00fd04fdsgfdsgs", '0');
+            var test3 = StripZeros("0000000000004fdgdfgdgd354", '0');
+            var test4 = StripZeros("00000000fdg4354" ,'0');
         }
     }
 }
